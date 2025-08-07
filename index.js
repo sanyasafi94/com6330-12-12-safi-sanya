@@ -33,6 +33,8 @@ class Word {
         let newDisplayWord = "";
         for (let i = 0; i < this.word.length; i++) {
           if (this.correctLetters.includes(this.word[i])) {
+            newDisplayWord += this.word[i];
+          } else {
             newDisplayWord += "_";
           }
         }
@@ -40,6 +42,7 @@ class Word {
       }
     } else {
       if (!this.incorrectLetters.includes(letter)) {
+        this.incorrectLetters.push(letter);
         this.remainingGuesses--;
       }
     }
@@ -55,10 +58,20 @@ class Word {
   }
 
   // implement the isGameOver function:
-  // isGameOver() {}
+  isGameOver() {
+    return this.remainingGuesses <= 0 || this.word === this.displayWord;
+  }
 
   // implement the getWinOrLoss function:
-  // getWinOrLoss() {}
+  getWinOrLoss() {
+    if (this.word === this.displayWord && this.remainingGuesses > 0) {
+      return "win";
+    } else if (this.word !== this.displayWord && this.remainingGuesses <= 0) {
+      return "loss";
+    } else {
+      return null;
+    }
+  }
 }
 
 function newGame() {
